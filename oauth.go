@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego/httplib"
 )
 
-func (this *WechatSdk) GetAccessToken(code string) (accessToken WechatOauthToken, err error) {
+func (this *WechatSdk) GetOauthAccessToken(code string) (accessToken WechatOauthToken, err error) {
 	req := httplib.Get("https://api.weixin.qq.com/sns/oauth2/access_token")
 	req.Param("appid", this.AppId)
 	req.Param("secret", this.AppSecret)
@@ -19,4 +19,19 @@ func (this *WechatSdk) GetAccessToken(code string) (accessToken WechatOauthToken
 		return WechatOauthToken{}, errors.New(accessToken.Errmsg)
 	}
 	return accessToken, nil
+}
+
+func (this *WechatSdk) GetOauthUserInfo(openid, accessToken string) (userInfo WechatOauthUserInfo, err error) {
+	req := httplib.Get("https://api.weixin.qq.com/sns/userinfo")
+	req.Param("access_token", accessToken)
+	req.Param("openid", openid)
+	req.Param("lang", "zh_CN")
+	err = req.ToJSON(&userInfo)
+	if err != nil {
+		return WechatOauthUserInfo{}, errors.New("request error: " + err.Error())
+	}
+	if userInfo.Errcode != 0 {
+		return WechatOauthUserInfo{}, errors.New(userInfo.Errmsg)
+	}
+	return userInfo, nil
 }

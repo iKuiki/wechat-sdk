@@ -15,6 +15,7 @@ type WechatOauthToken struct {
 }
 
 type WechatOauthUserInfo struct {
+	*WechatError
 	OpenId     string   `json:"openid"`
 	NickName   string   `json:"nickname"`
 	Sex        uint     `json:"sex"`

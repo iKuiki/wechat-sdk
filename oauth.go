@@ -15,7 +15,7 @@ func (this *WechatSdk) GetOauthAccessToken(code string) (accessToken WechatOauth
 	if err != nil {
 		return WechatOauthToken{}, errors.New("request error: " + err.Error())
 	}
-	if accessToken.Errcode != 0 {
+	if accessToken.WechatError != nil && accessToken.Errcode != 0 {
 		return WechatOauthToken{}, errors.New(accessToken.Errmsg)
 	}
 	return accessToken, nil
@@ -30,7 +30,7 @@ func (this *WechatSdk) GetOauthUserInfo(openid, accessToken string) (userInfo We
 	if err != nil {
 		return WechatOauthUserInfo{}, errors.New("request error: " + err.Error())
 	}
-	if userInfo.Errcode != 0 {
+	if userInfo.WechatError != nil && userInfo.Errcode != 0 {
 		return WechatOauthUserInfo{}, errors.New(userInfo.Errmsg)
 	}
 	return userInfo, nil

@@ -21,7 +21,7 @@ func (this *WechatSdk) GetOauthAccessToken(code string) (accessToken WechatOauth
 	return accessToken, nil
 }
 
-func (this *WechatSdk) GetOauthUserInfo(openid, accessToken string) (userInfo WechatOauthUserInfo, err error) {
+func (this *WechatSdk) GetOauthUserInfo(accessToken, openid string) (userInfo WechatOauthUserInfo, err error) {
 	req := httplib.Get("https://api.weixin.qq.com/sns/userinfo")
 	req.Param("access_token", accessToken)
 	req.Param("openid", openid)

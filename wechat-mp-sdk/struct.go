@@ -1,4 +1,4 @@
-package wechatsdk
+package wechat_mp_sdk
 
 type WechatError struct {
 	Errcode int    `json:"errcode,omitempty"`

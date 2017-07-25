@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/yinhui87/wechat-sdk"
+	"github.com/yinhui87/wechat-sdk/wechat-mp-sdk"
 	"testing"
 )
 
@@ -13,7 +13,7 @@ const (
 
 func TestGetOauthAccessToken(t *testing.T) {
 	code := ""
-	wechatSdk, err := wechatsdk.GetWechatSdk(APP_ID, APP_SECRET, APP_TOKEN)
+	wechatSdk, err := wechat_mp_sdk.GetMpSdk(APP_ID, APP_SECRET, APP_TOKEN)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -27,7 +27,7 @@ func TestGetOauthAccessToken(t *testing.T) {
 func TestGetOauthUserInfo(t *testing.T) {
 	openid := ""
 	accessToken := ""
-	wechatSdk, err := wechatsdk.GetWechatSdk(APP_ID, APP_SECRET, APP_TOKEN)
+	wechatSdk, err := wechat_mp_sdk.GetMpSdk(APP_ID, APP_SECRET, APP_TOKEN)
 	if err != nil {
 		t.Fatal(err)
 	}

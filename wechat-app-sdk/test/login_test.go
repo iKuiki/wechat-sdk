@@ -10,15 +10,33 @@ const (
 	APP_SECRET = ""
 )
 
+var (
+	sdk *wechat_app_sdk.AppSdk
+)
+
+func init() {
+	var err error
+	sdk, err = wechat_app_sdk.GetAppSdk(APP_ID, APP_SECRET)
+	if err != nil {
+		panic(err)
+	}
+}
 func TestCode2Session(t *testing.T) {
 	code := ""
-	appSdk, err := wechat_app_sdk.GetAppSdk(APP_ID, APP_SECRET)
+	session, err := sdk.Code2Session(code)
 	if err != nil {
-		t.Fatalf("Get sdk error: %#v", err)
-	}
-	session, err := appSdk.Code2Session(code)
-	if err != nil {
-		t.Fatalf("Code2Session error: %#v", err)
+		t.Fatalf("Code2Session error: %#v\n", err)
 	}
 	t.Log(session)
+}
+
+func TestDecryptUserInfo(t *testing.T) {
+	sessionKey := ""
+	encryptData := ""
+	iv := ""
+	info, err := sdk.DecryptUserInfo(sessionKey, encryptData, iv)
+	if err != nil {
+		t.Fatalf("Decrypt User Info error: %#v\n", err)
+	}
+	t.Logf("%#v", info)
 }

@@ -1,12 +1,11 @@
 package wechat_mp_sdk
 
-type WechatError struct {
-	Errcode int    `json:"errcode,omitempty"`
-	Errmsg  string `json:"errmsg,omitempty"`
-}
+import (
+	"github.com/yinhui87/wechat-sdk"
+)
 
 type WechatOauthToken struct {
-	*WechatError
+	*wechatsdk.WechatError
 	AccessToken  string `json:"access_token"`
 	ExpiresIn    uint   `json:"expires_in"`
 	RefreshToken string `json:"refresh_token"`
@@ -15,7 +14,7 @@ type WechatOauthToken struct {
 }
 
 type WechatOauthUserInfo struct {
-	*WechatError
+	*wechatsdk.WechatError
 	OpenId     string   `json:"openid"`
 	NickName   string   `json:"nickname"`
 	Sex        uint     `json:"sex"`
